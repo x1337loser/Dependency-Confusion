@@ -57,7 +57,7 @@ follow these videos and repo
 
 
 ## Uploading POC:
-please follow this video on my youtube channel.
+please follow this [video](https://youtu.be/GJSvEAJeqko) on my youtube channel.
 
 in this folder `src/poc`, edit `index.js` file. replace `niroborg-npm-com-test` with your target package name. also `bind9-or-callback-server.com` to your callback DNS server.
 ```javascript
@@ -94,7 +94,7 @@ and in `package.json` file, replace `test-npm-com-test` with your target package
 }
 
 ```
-please follow this [video](https://youtu.be/GJSvEAJeqko) on my youtube channel.
+
 ## Mitigation:
 Scan your project dependency with [confused](https://github.com/visma-prodsec/confused) by [@visma-prodsec](https://github.com/visma-prodsec)
 
