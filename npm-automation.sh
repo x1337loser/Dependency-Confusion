@@ -5,7 +5,7 @@ echo '''
   /  |/ / __ \/ __ `__ \   / /| |/ / / / __/ __ \
  / /|  / /_/ / / / / / /  / ___ / /_/ / /_/ /_/ /
 /_/ |_/ .___/_/ /_/ /_/  /_/  |_\__,_/\__/\____/ 
-     /_/                                           v1.0.1
+     /_/                                           v1.0.2
               twitter.com/@0xnirob        
 warning: BE AWARE OF FALSE POSITIVE, CONFIRM YOUR FINDING MANUALLY.  Good Luck.
 Use with caution. You are responsible for your actions.
