@@ -20,7 +20,7 @@ fi
 echo -e "Running waybackurls on $1"
 waybackurls $1 | sort -u | grep .js | sed 's/?.*//' | grep -v '/wp-content/\|/wp-includes/\|.json\|jpg\|png\|css|\|/member/\|.jsp\|oauth\|login\|en-us\|v=\|=\|?\|/help/\|/id/\|paragon\|/wp-json/' | sort -u | tee -a $PWD/$1/$1-js-urls.txt >/dev/null 2>&1;
 echo -e "Running gau on $1"
-#gau $1 | sort -u | grep .js | sed 's/?.*//' | grep -v '/wp-content/\|/wp-includes/\|.json\|jpg\|png\|css|\|/member/\|.jsp\|oauth\|login\|en-us\|v=\|=\|?\|/help/\|/id/\|paragon\|/wp-json/' | sort -u | tee -a $PWD/$1/$1-js-urls.txt >/dev/null 2>&1;
+gau $1 | sort -u | grep .js | sed 's/?.*//' | grep -v '/wp-content/\|/wp-includes/\|.json\|jpg\|png\|css|\|/member/\|.jsp\|oauth\|login\|en-us\|v=\|=\|?\|/help/\|/id/\|paragon\|/wp-json/' | sort -u | tee -a $PWD/$1/$1-js-urls.txt >/dev/null 2>&1;
 
 cd $PWD/$1;
 echo -e "Found $(cat $1-js-urls.txt | sort -u |wc -l) js file url ";
