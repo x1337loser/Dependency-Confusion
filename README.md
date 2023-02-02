@@ -34,8 +34,6 @@ This is so easy for npm normal packages, just visit `https://npmjs.com/package/Y
 
 ## Automating with bash to find private packages:
 
-*warning: BE AWARE OF FALSE POSITIVE, CONFIRM YOUR FINDING MANUALLY*
-
 Download this `npm-automation.sh` file and run this command in your terminal `bash automate-bash.sh <target domain>` make sure you have installed [tomnomnom's waybackurls](https://github.com/tomnomnom/waybackurls) and [hacker_'s gau](https://github.com/lc/gau) in your machine.
 
 
