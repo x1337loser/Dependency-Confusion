@@ -6,7 +6,7 @@ echo '''
  / /|  / /_/ / / / / / /  / ___ / /_/ / /_/ /_/ /
 /_/ |_/ .___/_/ /_/ /_/  /_/  |_\__,_/\__/\____/ 
      /_/                                           v1.0.2
-              twitter.com/@0xnirob        
+              twitter.com/@x1337loser        
 warning: BE AWARE OF FALSE POSITIVE, CONFIRM YOUR FINDING MANUALLY.  Good Luck.
 Use with caution. You are responsible for your actions.
 Developers assume no liability and are not responsible for any misuse or damage.
